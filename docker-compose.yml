@@ -1,0 +1,13 @@
+es:  
+  image: elasticsearch
+  volumes:
+    - /home/esdata:/usr/share/elasticsearch/data elasticsearch`
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  restart: always
+kibana:
+  image: kibana
+  ports: 
+   - "5601:5601"
+  links: es
