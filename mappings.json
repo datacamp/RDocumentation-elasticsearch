@@ -35,7 +35,28 @@
         "sourceJSON": {
           "type": "object",
           "enabled": false
+        },
+        "maintainer": {
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "collaborators": {
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
         }
+
       }
     }
   }
