@@ -8,7 +8,7 @@ ENV JDBC_IMPORTER_HOME /elasticsearch-jdbc-2.3.3.0
 
 WORKDIR elasticsearch-jdbc-2.3.3.0
 
-COPY run.sh .
+COPY . .
 
 RUN chmod +x run.sh
 

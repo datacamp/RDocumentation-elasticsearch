@@ -1,0 +1,16 @@
+{
+    "type" : "jdbc",
+    "jdbc" : {
+        "url" : "jdbc:mysql://rdocsv2.cwvhgphxbnoa.us-west-1.rds.amazonaws.com:3306/rdocs",
+        "user" : "aws",
+        "password" : "SQhBVFNvvMX4sEb5FKEYVjhG",
+        "sql" : "select * from PackageVersions limit 10",
+        "index" : "rdoc",
+        "type": "package_version",
+        "elasticsearch" : {
+          "cluster": "elasticsearch",
+          "host": "es",
+          "port": 9300
+        }
+    }
+}

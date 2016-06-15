@@ -1,13 +1,20 @@
 es:  
   image: elasticsearch
   volumes:
-    - /home/esdata:/usr/share/elasticsearch/data elasticsearch`
+    - ~/esdata:/usr/share/elasticsearch/data`
   ports:
     - "9200:9200"
     - "9300:9300"
   restart: always
 kibana:
   image: kibana
+  environment:
+    - ELASTICSEARCH_URL=http://es:9200
   ports: 
    - "5601:5601"
-  links: es
+  links: 
+   - es
+importer:
+  build: ./importer
+  links:
+   - es

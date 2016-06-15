@@ -1,0 +1,42 @@
+{
+  "mappings": {
+    "package_version": {
+      "properties": {
+        "package_name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "release_date": {
+          "type": "date"
+        },
+        "license": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "copyright": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "date"
+        },
+        "updated_at": {
+          "type": "date"
+        },
+        "sourceJSON": {
+          "type": "object",
+          "enabled": false
+        }
+      }
+    }
+  }
+}
