@@ -1,0 +1,4 @@
+es:  
+  volumes:
+    - ~/esdata:/usr/share/elasticsearch/data
+    - ./config:/usr/share/elasticsearch/config
