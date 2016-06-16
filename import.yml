@@ -4,5 +4,6 @@ elasticsearchjdbc:
   volumes:
     - ./importer/data:/opt/elasticsearch-jdbc/data
     - ./importer/logs:/opt/elasticsearch-jdbc/logs
+  entrypoint: /entrypoint.sh
   external_links:
     - esrdocs_es_1:es

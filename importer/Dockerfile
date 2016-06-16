@@ -25,13 +25,8 @@ VOLUME /opt/elasticsearch-jdbc/data
 
 VOLUME /opt/elasticsearch-jdbc/logs
 
+COPY entrypoint.sh /entrypoint.sh
 
-CMD dockerize \
-    -stdout logs/jdbc.log \
-    -stdout data/statefile.json \
-     java \
-    -cp "/opt/elasticsearch-jdbc/lib/*" \
-    -Dlog4j.configurationFile=/opt/elasticsearch-jdbc/bin/log4j2.xml \
-    org.xbib.tools.Runner \
-    org.xbib.tools.JDBCImporter \
-    data/package_version.json
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh", "package_version.json"]

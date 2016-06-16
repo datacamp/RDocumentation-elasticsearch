@@ -58,6 +58,82 @@
         }
 
       }
+    },
+    "topic": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "usage": {
+          "type": "string"
+        },
+        "details": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "references": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "seealso": {
+          "type": "string"
+        },
+        "examples": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "date"
+        },
+        "updated_at": {
+          "type": "date"
+        },
+        "sourceJSON": {
+          "type": "object",
+          "enabled": false
+        },
+        "_parent": {
+          "type": "package_version" 
+        },
+        "arguments": {
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "section": {
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "aliases": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "string"
+        }
+      }
     }
   }
 }
