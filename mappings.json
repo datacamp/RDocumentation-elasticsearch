@@ -36,6 +36,9 @@
           "type": "object",
           "enabled": false
         },
+        "latest_version": {
+          "type": "boolean"
+        },
         "maintainer": {
           "properties": {
             "name": {
@@ -60,6 +63,9 @@
       }
     },
     "topic": {
+      "_parent": {
+        "type": "package_version" 
+      },
       "properties": {
         "name": {
           "type": "string"
@@ -103,9 +109,6 @@
         "sourceJSON": {
           "type": "object",
           "enabled": false
-        },
-        "_parent": {
-          "type": "package_version" 
         },
         "arguments": {
           "properties": {
