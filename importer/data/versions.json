@@ -1,0 +1,36 @@
+{
+    "type" : "jdbc",
+    "jdbc" : {
+        "url" : "{{ .Env.DB_URL }}",
+        "user" : "{{ .Env.DB_USER }}",
+        "password" : "{{ .Env.DB_PASSWORD }}",
+        "sql" : {
+          "statement": "select pa.latest_version_id = p.id as latest_version, p.id as _id, package_name, version, title, description, release_date, license, url, copyright, p.created_at, p.updated_at, sourceJSON, m.name as `maintainer.name`, m.email as `maintainer.email`, c.name as `collaborators.name`, c.email as `collaborators.email` from Packages pa INNER JOIN PackageVersions p on pa.`name` = p.`package_name` LEFT OUTER JOIN Collaborators m ON p.maintainer_id = m.id LEFT OUTER JOIN Collaborations ca ON ca.`authored_version_id` = p.id LEFT OUTER JOIN Collaborators c on c.id = ca.author_id WHERE p.updated_at > ? ORDER BY p.id;",
+          "parameter" : [ "$metrics.lastexecutionstart" ]
+        },
+        "resultset_concurrency": "CONCUR_READ_ONLY",
+        "resultset_type": "TYPE_FORWARD_ONLY",
+        "statefile" : "data/versions.state.json",
+        "metrics" : {
+          "lastexecutionstart" : "2016-06-01T00:00:00.000Z",
+          "lastexecutionend" : "2016-06-01T00:00:01.000Z",
+          "enabled" : true,
+          "interval" : "1m",
+          "logger" : {
+              "plain" : false,
+              "json" : true
+          }
+        },
+        "threadpoolsize" : 1,
+        "max_bulk_volume": "5m",
+        "max_concurrrent_bulk_requests": 10,
+        "index" : "rdoc",
+        "type": "package_version",
+        "elasticsearch" : {
+          "cluster": "rdoc",
+          "host": "es",
+          "port": 9300
+        },
+        "schedule": "0 17 10 1/1 * ? *"
+    }
+}
