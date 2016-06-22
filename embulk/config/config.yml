@@ -1,0 +1,32 @@
+in:
+  type: file
+  path_prefix: /data/
+  parser:
+    charset: UTF-8
+    newline: CRLF
+    type: csv
+    delimiter: ','
+    quote: '"'
+    escape: '"'
+    trim_if_not_quoted: false
+    skip_header_lines: 1
+    allow_extra_columns: false
+    allow_optional_columns: false
+    columns:
+    - {name: date, type: string}
+    - {name: time, type: string}
+    - {name: size, type: long}
+    - {name: r_version, type: string}
+    - {name: r_arch, type: string}
+    - {name: r_os, type: string}
+    - {name: package, type: string}
+    - {name: version, type: string}
+    - {name: country, type: string}
+    - {name: ip_id, type: long}
+out:
+  type: elasticsearch
+  index: rdoc
+  index_type: stats
+  cluster_name: rdoc
+  nodes:
+  - host: es
