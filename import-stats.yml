@@ -1,0 +1,8 @@
+embulk:
+  build: ./embulk
+  hostname: embulk
+  volumes:
+    - ./embulk/data:/data
+    - ./embulk/config:/config
+  external_links:
+    - esrdocs_es_1:es
