@@ -1,19 +1,21 @@
 #!/bin/bash
 
 
-#download new data
-now=`date +"%Y-%m-%d" --date "2012-10-01"`
-end=`date +"%Y-%m-%d" --date "2012-05-23"`
+lastdate=$(cat /data/lastsync)
+lastsync=`date +"%Y-%m-%d" --date "$lastdate"`
+now=`date +"%Y-%m-%d" --date "yesterday"`
 
-while [ "$now" != "$end" ] ; 
+while [ "$lastsync" != "$now" ] ; 
 do 
-        now=`date +"%Y-%m-%d" -d "$now + 1 day"`; 
-        echo $now
+  lastsync=`date +"%Y-%m-%d" -d "$lastsync + 1 day"`; 
+  #download new data
+  wget -P /data/zipped/ "http://cran-logs.rstudio.com/2016/$lastsync.csv.gz"
+  #unzip
+  gzip -c -d /data/zipped/$lastsync.csv.gz > /data/unzipped/$lastsync.csv
+  #transform
+  /scripts/transform.sh /data/unzipped/$lastsync.csv > /data/transformed/$lastsync.csv
+  echo $lastsync
 done
-#unzip
-
-#transform
-
 
 #index to es
-#embulk run /path/to/config.yml -c /path/to/diff.yml
+embulk run /config/config.yml -c /config/diff.yml

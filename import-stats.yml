@@ -4,5 +4,6 @@ embulk:
   volumes:
     - ./embulk/data:/data
     - ./embulk/config:/config
+    - ./embulk/scripts:/scripts
   external_links:
     - esrdocs_es_1:es

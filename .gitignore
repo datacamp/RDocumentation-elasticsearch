@@ -1,3 +1,5 @@
 *.state.json
 .DS_Store
 *.log
+
+embulk/data
