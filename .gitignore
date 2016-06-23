@@ -3,3 +3,6 @@
 *.log
 
 embulk/data
+embulk/config/diff.yml
+embulk/logs/*.logs
+embulk/logs/*.log
