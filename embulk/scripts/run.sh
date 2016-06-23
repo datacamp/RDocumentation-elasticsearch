@@ -1,5 +1,6 @@
 #!/bin/bash
 trap "exit" INT
+trap "exit" SIGINT
 
 lastdate=$(cat /data/lastsync)
 lastsync=`date +"%Y-%m-%d" --date "$lastdate"`
