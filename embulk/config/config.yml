@@ -1,6 +1,6 @@
 in:
   type: file
-  path_prefix: /data/
+  path_prefix: /data/transformed
   parser:
     charset: UTF-8
     newline: CRLF
@@ -13,6 +13,7 @@ in:
     allow_extra_columns: false
     allow_optional_columns: false
     columns:
+    - {name: datetime, type: string}
     - {name: date, type: string}
     - {name: time, type: string}
     - {name: size, type: long}

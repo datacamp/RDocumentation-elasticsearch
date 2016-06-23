@@ -141,19 +141,16 @@
     "stats":{
       "properties": {
         "date": {
-         "type": "date",
-         "format": "date",
-         "copy_to": "timestamp"
+          "type": "string",
+          "index": "no"
         },
         "time": {
-         "type": "date",
-         "format": "HH:mm:ss",
-         "copy_to": "timestamp"
+         "type": "string",
+         "index": "no"
         },
-        "timestamp": {
+        "datetime": {
           "type": "date",
-          "format": "yyyy-MM-dd HH:mm:ss",
-          "index": "not_analyzed"
+          "format": "yyyy-MM-dd'T'HH:mm:ss"
         },
         "size": {
          "type": "long"
