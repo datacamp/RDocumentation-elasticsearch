@@ -7,9 +7,10 @@ now=`date +"%Y-%m-%d" --date "yesterday"`
 
 while [ "$lastsync" != "$now" ] ; 
 do 
-  
+  #year
+  year=`date +"%Y" -d "$lastsync"`; 
   #download new data
-  wget -O /data/zipped/$lastsync.csv.gz "http://cran-logs.rstudio.com/2016/$lastsync.csv.gz"
+  wget -O /data/zipped/$lastsync.csv.gz "http://cran-logs.rstudio.com/$year/$lastsync.csv.gz"
   #unzip
   gzip -c -d /data/zipped/$lastsync.csv.gz > /data/unzipped/$lastsync.csv
   #transform
