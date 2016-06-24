@@ -9,8 +9,7 @@
       },
       "properties": {
         "package_name": {
-          "type": "string",
-          "index": "not_analyzed"
+          "type": "string"
         },
         "version": {
           "type": "string",
@@ -27,7 +26,6 @@
         },
         "license": {
           "type": "string",
-          "index": "not_analyzed"
         },
         "url": {
           "type": "string"
@@ -141,7 +139,6 @@
         },
         "aliases": {
           "type": "string",
-          "index": "not_analyzed"
         },
         "keywords": {
           "type": "string"

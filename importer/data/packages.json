@@ -24,7 +24,7 @@
         "threadpoolsize" : 1,
         "max_bulk_volume": "5m",
         "max_concurrrent_bulk_requests": 10,
-        "index" : "rdoc_v3",
+        "index" : "rdoc_v4",
         "type": "package",
         "elasticsearch" : {
           "cluster": "rdoc",
