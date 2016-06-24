@@ -1,6 +1,7 @@
 *.state.json
 .DS_Store
 *.log
+.env
 
 embulk/data
 embulk/config/diff.yml

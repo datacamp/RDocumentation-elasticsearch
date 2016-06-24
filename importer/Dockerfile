@@ -25,6 +25,8 @@ VOLUME /opt/elasticsearch-jdbc/data
 
 VOLUME /opt/elasticsearch-jdbc/logs
 
+RUN mkdir /tmpl
+
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
