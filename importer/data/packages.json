@@ -1,0 +1,36 @@
+{
+    "type" : "jdbc",
+    "jdbc" : {
+        "url" : "{{ .Env.DB_URL }}",
+        "user" : "{{ .Env.DB_USER }}",
+        "password" : "{{ .Env.DB_PASSWORD }}",
+        "sql" : {
+          "statement": "select p.name as _id, s.last_month_downloads as last_month_downloads from Packages p INNER JOIN DownloadStatistics s on p.name = s.package_name WHERE p.updated_at > ?;",
+          "parameter" : [ "$metrics.lastexecutionstart" ]
+        },
+        "resultset_concurrency": "CONCUR_READ_ONLY",
+        "resultset_type": "TYPE_FORWARD_ONLY",
+        "statefile" : "data/packages.state.json",
+        "metrics" : {
+          "lastexecutionstart" : "2016-06-01T00:00:00.000Z",
+          "lastexecutionend" : "2016-06-01T00:00:01.000Z",
+          "enabled" : true,
+          "interval" : "1m",
+          "logger" : {
+              "plain" : false,
+              "json" : true
+          }
+        },
+        "threadpoolsize" : 1,
+        "max_bulk_volume": "5m",
+        "max_concurrrent_bulk_requests": 10,
+        "index" : "rdoc_v3",
+        "type": "package",
+        "elasticsearch" : {
+          "cluster": "rdoc",
+          "host": "es",
+          "port": 9300
+        },
+        "schedule": "0 00 13 1/1 * ? *"
+    }
+}
