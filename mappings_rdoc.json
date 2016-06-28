@@ -150,6 +150,9 @@
       "properties": {
         "last_month_downloads": {
           "type": "long"
+        },
+        "part_of_r": {
+          "type": "boolean"
         }
       }
     }
