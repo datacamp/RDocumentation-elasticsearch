@@ -12,8 +12,8 @@
         "resultset_type": "TYPE_FORWARD_ONLY",
         "statefile" : "data/packages.state.json",
         "metrics" : {
-          "lastexecutionstart" : "2016-06-01T00:00:00.000Z",
-          "lastexecutionend" : "2016-06-01T00:00:01.000Z",
+          "lastexecutionstart" : "2016-07-12T13:15:00.069Z",
+     	  "lastexecutionend" : "2016-07-12T13:15:00.123Z",
           "enabled" : true,
           "interval" : "1m",
           "logger" : {
@@ -31,6 +31,6 @@
           "host": "es",
           "port": 9300
         },
-        "schedule": "0 15 13 1/1 * ? *"
+        "schedule": "0 0/10 * 1/1 * ? *"
     }
 }

@@ -12,8 +12,8 @@
         "resultset_type": "TYPE_FORWARD_ONLY",
         "statefile" : "data/versions.state.json",
         "metrics" : {
-          "lastexecutionstart" : "2016-06-01T00:00:00.000Z",
-          "lastexecutionend" : "2016-06-01T00:00:01.000Z",
+          "lastexecutionstart" : "2016-06-26T00:00:00.000Z",
+          "lastexecutionend" : "2016-06-26T00:00:01.000Z",
           "enabled" : true,
           "interval" : "1m",
           "logger" : {
