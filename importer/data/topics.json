@@ -8,10 +8,6 @@
           {
             "statement": "select t.id as _id, p.package_name as _routing, t.name, t.title, t.description, t.usage, t.details, t.value, t.references, t.note, t.author, t.seealso, t.examples, t.created_at, t.updated_at, t.package_version_id as _parent, t.sourceJSON, a.`name` as `arguments[name]`, a.`description` as `arguments[description]`, s.`name` as `sections[name]`, s.`description` as `sections[description]`, al.`name` as `aliases`, ta.`name` as `keywords` from Topics t left outer join Arguments a on a.topic_id = t.id left outer join Sections s on s.topic_id = t.id left outer join Aliases al on al.topic_id = t.id left outer join TopicTags tt on tt.topic_id = t.id left outer join Tags ta on tt.tag_id = ta.id inner join PackageVersions p on p.id = t.package_version_id where t.updated_at > ? order by t.id;",
             "parameter" : [ "$metrics.lastexecutionstart" ]
-          },
-          {
-            "statement" : "UPDATE Topics SET updated_at = now() where updated_at < '2016-06-24 08:30:00' order by id limit 10000;",
-            "write" : "true"
           }
         ],
         "resultset_concurrency": "CONCUR_READ_ONLY",
