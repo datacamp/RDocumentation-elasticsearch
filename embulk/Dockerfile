@@ -2,7 +2,7 @@ FROM java:8-jre
 
 # Install base packages
 RUN apt-get -y update \
- && apt-get install -y unzip wget gawk
+ && apt-get install -y unzip wget gawk cron
 
 # Install dockerize
 RUN wget -O /tmp/dockerize-linux-amd64-v0.0.4.tar.gz https://github.com/jwilder/dockerize/releases/download/v0.0.4/dockerize-linux-amd64-v0.0.4.tar.gz \
@@ -20,6 +20,16 @@ RUN apt-get remove -y unzip \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
+ADD crontab /etc/cron.d/embulk-cron
+ADD run-cron.sh /bin/run-cron.sh
+
+RUN crontab /etc/cron.d/embulk-cron
+
+RUN touch /var/log/cron.log
+
+RUN chmod 0644 /etc/cron.d/embulk-cron
+
+
 VOLUME /config
 
 VOLUME /data
@@ -28,8 +38,4 @@ VOLUME /scripts
 
 VOLUME /logs
 
-COPY entrypoint.sh /entrypoint.sh
-
-RUN chmod +x /entrypoint.sh
-
-CMD ["/entrypoint.sh"]
+CMD ["/bin/run-cron.sh"]

@@ -4,14 +4,21 @@ trap "exit" SIGINT
 
 lastdate=$(cat /data/lastsync)
 lastsync=`date +"%Y-%m-%d" --date "$lastdate"`
-now=`date +"%Y-%m-%d" --date "yesterday"`
+now=`date +"%Y-%m-%d" --date "today"`
+
+echo "Syncing new stats...";
 
 while [ "$lastsync" != "$now" ] ; 
 do 
   #year
   year=`date +"%Y" -d "$lastsync"`; 
   #download new data
-  wget -O /data/zipped/$lastsync.csv.gz "http://cran-logs.rstudio.com/$year/$lastsync.csv.gz"
+  wget_output=$(wget -O /data/zipped/$lastsync.csv.gz "http://cran-logs.rstudio.com/$year/$lastsync.csv.gz")
+  if [ $? -ne 0 ]; then
+    echo "Nothing new";
+    rm /data/zipped/$lastsync.csv.gz
+    exit;
+  fi
   #unzip
   gzip -c -d /data/zipped/$lastsync.csv.gz > /data/unzipped/$lastsync.csv
   #transform
@@ -28,3 +35,4 @@ do
 done
 
 
+echo "Done";
