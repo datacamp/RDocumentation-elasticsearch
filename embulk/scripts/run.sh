@@ -24,7 +24,7 @@ do
   #transform
   /scripts/transform.sh /data/unzipped/$lastsync.csv > /data/transformed/$lastsync.csv
   #index
-  embulk run /config/config.yml -c /config/diff.yml >> /logs/embulk.log
+  /usr/local/bin/embulk run /config/config.yml -c /config/diff.yml >> /logs/embulk.log
   #delete to not take disk space
   rm /data/zipped/$lastsync.csv.gz
   rm /data/unzipped/$lastsync.csv
