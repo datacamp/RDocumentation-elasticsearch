@@ -5,8 +5,7 @@
         "user" : "{{ .Env.DB_USER }}",
         "password" : "{{ .Env.DB_PASSWORD }}",
         "sql" : {
-          "statement": "select p.name as _id, r.`name` = 'part_of_r' as part_of_r, s.downloads as last_month_downloads from Packages p INNER JOIN (select SUM(s.`direct_downloads`) as downloads, s.package_name FROM DownloadStatistics s WHERE `date` >= current_date() - interval '1' month GROUP BY package_name) as s ON s.package_name = p.name INNER JOIN Repositories r on p.type_id = r.id;",
-          "parameter" : [ "$metrics.lastexecutionstart" ]
+          "statement": "select p.name as _id, r.`name` = 'part_of_r' as part_of_r, s.downloads as last_month_downloads from Packages p INNER JOIN (select SUM(s.`direct_downloads`) as downloads, s.package_name FROM DownloadStatistics s WHERE `date` >= current_date() - interval '1' month GROUP BY package_name) as s ON s.package_name = p.name INNER JOIN Repositories r on p.type_id = r.id;"
         },
         "resultset_concurrency": "CONCUR_READ_ONLY",
         "resultset_type": "TYPE_FORWARD_ONLY",
