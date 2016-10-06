@@ -21,9 +21,9 @@ RUN apt-get remove -y unzip wget \
 
 WORKDIR /opt/elasticsearch-jdbc
 
-VOLUME /opt/elasticsearch-jdbc/data
+COPY logging.xml /opt/elasticsearch-jdbc/bin/logging.xml
 
-VOLUME /opt/elasticsearch-jdbc/logs
+VOLUME /opt/elasticsearch-jdbc/data
 
 RUN mkdir /tmpl
 
@@ -31,4 +31,4 @@ COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-CMD ["/entrypoint.sh", "package_version.json"]
+CMD ["/entrypoint.sh", "version.json"]

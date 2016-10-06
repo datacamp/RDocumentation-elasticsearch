@@ -1,10 +1,33 @@
-elasticsearchjdbc:
+versions:
   build: ./importer
-  hostname: elasticsearchjdbc
   volumes:
     - ./importer/data:/opt/elasticsearch-jdbc/data
-    - ./importer/logs:/opt/elasticsearch-jdbc/logs
-  entrypoint: /entrypoint.sh
+  entrypoint: 
+   - /entrypoint.sh
+   - versions.json
   env_file: ./importer/.env
   external_links:
     - esrdocs_es_1:es
+  restart: always
+topics:
+  build: ./importer
+  volumes:
+    - ./importer/data:/opt/elasticsearch-jdbc/data
+  entrypoint: 
+   - /entrypoint.sh
+   - topics.json
+  env_file: ./importer/.env
+  external_links:
+    - esrdocs_es_1:es
+  restart: always
+packages:
+  build: ./importer
+  volumes:
+    - ./importer/data:/opt/elasticsearch-jdbc/data
+  entrypoint: 
+   - /entrypoint.sh
+   - packages.json
+  env_file: ./importer/.env
+  external_links:
+    - esrdocs_es_1:es
+  restart: always

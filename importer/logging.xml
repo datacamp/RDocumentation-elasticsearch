@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{ABSOLUTE}][%-5p][%-25c][%t] %m%n"/>
+        </Console>
+    </appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+        </Root>
+        <!-- set this level to trace to debug SQL value mapping -->
+        <Logger name="importer.jdbc.source.standard" level="info">
+            <appender-ref ref="Console"/>
+        </Logger>
+        <Logger name="metrics.source.plain" level="info">
+            <appender-ref ref="Console"/>
+        </Logger>
+        <Logger name="metrics.sink.plain" level="info">
+            <appender-ref ref="Console"/>
+        </Logger>
+        <Logger name="metrics.source.json" level="info">
+            <appender-ref ref="Console"/>
+        </Logger>
+        <Logger name="metrics.sink.json" level="info">
+            <appender-ref ref="Console"/>
+        </Logger>
+    </Loggers>
+</configuration>
