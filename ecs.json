@@ -38,6 +38,24 @@
           "containerPath": "/usr/share/logstash/state"
         }
       ]
+    },
+    {
+      "containerName": "${SERVICE}-topics",
+      "containerImage": "${SERVICE}",
+      "containerTag": "${CIRCLE_SHA1}",
+      "memoryReservation": 1024,
+      "essential": true,
+      "containerCommand": [
+        "bash",
+        "-c",
+        "eval $(aws-env) && logstash --allow-env --verbose -f /usr/share/logstash/pipeline/topics.conf"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "efs",
+          "containerPath": "/usr/share/logstash/state"
+        }
+      ]
     }
   ],
   "volumes": [
