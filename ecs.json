@@ -4,7 +4,7 @@
   "desiredCount": ${DESIRED_COUNT},
   "containers": [
     {
-      "containerName": "${SERVICE}-packages",
+      "containerName": "${SERVICE}",
       "containerImage": "${SERVICE}",
       "containerTag": "${CIRCLE_SHA1}",
       "memoryReservation": 512,
@@ -19,7 +19,7 @@
           "sourceVolume": "efs",
           "containerPath": "/usr/share/logstash/state"
         }
-      ],
+      ]
     },
     {
       "containerName": "${SERVICE}-versions",
@@ -37,7 +37,7 @@
           "sourceVolume": "efs",
           "containerPath": "/usr/share/logstash/state"
         }
-      ],
+      ]
     },
     {
       "containerName": "${SERVICE}-topics",
@@ -55,7 +55,7 @@
           "sourceVolume": "efs",
           "containerPath": "/usr/share/logstash/state"
         }
-      ],
+      ]
     }
   ],
   "volumes": [
