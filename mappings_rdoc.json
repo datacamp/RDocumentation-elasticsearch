@@ -131,14 +131,7 @@
           }
         },
         "sections": {
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            }
-          }
+          "type": "string"
         },
         "aliases": {
           "type": "string"
