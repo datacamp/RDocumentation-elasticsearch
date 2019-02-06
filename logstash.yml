@@ -1,0 +1,26 @@
+version: "3"
+services:
+  versions:
+    build: ./logstash 
+    volumes:
+      - ./logstash/state:/usr/share/logstash/state
+    command: ["logstash", "-f", "/usr/share/logstash/pipeline/versions.conf"]
+    networks:
+      - rdocumentationelasticsearch_es
+  packages:
+    build: ./logstash 
+    volumes:
+      - ./logstash/state:/usr/share/logstash/state
+    command: ["logstash", "-f", "/usr/share/logstash/pipeline/packages.conf"]
+    networks:
+      - rdocumentationelasticsearch_es
+  topics:
+    build: ./logstash 
+    volumes:
+      - ./logstash/state:/usr/share/logstash/state
+    command: ["logstash", "-f", "/usr/share/logstash/pipeline/topics.conf"]
+    networks:
+      - rdocumentationelasticsearch_es
+networks:
+  rdocumentationelasticsearch_es:
+    external: true

@@ -1,0 +1,49 @@
+{
+  "family": "${SERVICE}",
+  "containerDefinitions": [
+    {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "datacamp-${ENVIRONMENT}",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "${SERVICE}"
+        }
+      },
+      "command": [
+        "bash",
+        "-c",
+        "eval $(aws-env) && logstash -f /usr/share/logstash/pipeline/packages.conf"
+      ],
+      "cpu": 128,
+      "environment": [
+        {
+          "name": "AWS_ENV_PATH",
+          "value": "/datacamp-${ENVIRONMENT}/${SERVICE}/"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "us-east-1"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "efs",
+          "containerPath": "/usr/share/logstash/state"
+        }
+      ],
+      "memoryReservation": 512,
+      "image": "${ECR_URL}/${SERVICE}:${CIRCLE_SHA1}",
+      "essential": true,
+      "name": "${SERVICE}"
+    }
+  ],
+  "volumes": [
+    {
+      "name": "efs",
+      "host": {
+        "sourcePath": "/efs/${SERVICE}"
+      }
+    }
+  ]
+}

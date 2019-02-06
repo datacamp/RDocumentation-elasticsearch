@@ -1,0 +1,22 @@
+in:
+  type: mysql
+  host: {{ .Env.DB_HOST }}
+  user: {{ .Env.DB_USER }}
+  password: "{{ .Env.DB_PASSWORD }}"
+  database: {{ .Env.DB_NAME }}
+  query: |
+    SELECT pa.latest_version_id = p.id as latest_version, p.id as id, package_name as _parent,
+      package_name, version, title, description, release_date, license, url, copyright, p.created_at, p.updated_at, sourceJSON,
+      m.name as `maintainer.name`, m.email as `maintainer.email`, c.name as `collaborators.name`, c.email as `collaborators.email`
+    FROM Packages pa INNER JOIN PackageVersions p ON pa.`name` = p.`package_name` 
+    LEFT OUTER JOIN Collaborators m ON p.maintainer_id = m.id 
+    LEFT OUTER JOIN Collaborations ca ON ca.`authored_version_id` = p.id 
+    LEFT OUTER JOIN Collaborators c on c.id = ca.author_id WHERE p.updated_at > '2017-01-07 10:21:41' ORDER BY p.id;
+out:
+  type: elasticsearch
+  index: rdoc_v4
+  index_type: package
+  id: "id"
+  cluster_name: rdoc
+  nodes:
+  - host: es

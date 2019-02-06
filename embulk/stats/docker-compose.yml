@@ -7,5 +7,5 @@ embulk:
     - ./embulk/scripts:/scripts
     - ./embulk/logs:/logs
   external_links:
-    - esrdocs_es_1:es
+    - rdocumentationelasticsearch_es_1:es
   restart: always

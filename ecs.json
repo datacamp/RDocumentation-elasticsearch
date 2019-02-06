@@ -1,0 +1,69 @@
+{
+  "cluster": "${CLUSTER}",
+  "serviceProtocol": "none",
+  "desiredCount": ${DESIRED_COUNT},
+  "containers": [
+    {
+      "containerName": "${SERVICE}",
+      "containerImage": "${SERVICE}",
+      "containerTag": "${CIRCLE_SHA1}",
+      "memoryReservation": 512,
+      "essential": true,
+      "containerCommand": [
+        "bash",
+        "-c",
+        "eval $(aws-env) && logstash --allow-env --verbose -f /usr/share/logstash/pipeline/packages.conf"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "efs",
+          "containerPath": "/usr/share/logstash/state"
+        }
+      ]
+    },
+    {
+      "containerName": "${SERVICE}-versions",
+      "containerImage": "${SERVICE}",
+      "containerTag": "${CIRCLE_SHA1}",
+      "memoryReservation": 512,
+      "essential": true,
+      "containerCommand": [
+        "bash",
+        "-c",
+        "eval $(aws-env) && logstash --allow-env --verbose -f /usr/share/logstash/pipeline/versions.conf"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "efs",
+          "containerPath": "/usr/share/logstash/state"
+        }
+      ]
+    },
+    {
+      "containerName": "${SERVICE}-topics",
+      "containerImage": "${SERVICE}",
+      "containerTag": "${CIRCLE_SHA1}",
+      "memoryReservation": 1024,
+      "essential": true,
+      "containerCommand": [
+        "bash",
+        "-c",
+        "eval $(aws-env) && logstash --allow-env --verbose -f /usr/share/logstash/pipeline/topics.conf"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "efs",
+          "containerPath": "/usr/share/logstash/state"
+        }
+      ]
+    }
+  ],
+  "volumes": [
+    {
+      "name": "efs",
+      "host": {
+        "sourcePath": "/efs/rdoc-logstash"
+      }
+    }
+  ]
+}
