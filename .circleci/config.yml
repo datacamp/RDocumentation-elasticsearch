@@ -13,6 +13,8 @@ workflows:
           aws-secret-access-key: $STAGING_AWS_SECRET_ACCESS_KEY
           account-url: $STAGING_ECR_URL
           repo: rdoc-logstash
+          path: logstash
+          dockerfile: logstash/Dockerfile
       - datacamp-deploy/deploy: # Staging
           context: org-global
           requires:
