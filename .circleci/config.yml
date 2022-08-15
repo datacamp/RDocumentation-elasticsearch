@@ -1,47 +1,33 @@
 version: 2.1
 orbs:
-  datacamp-ecr: datacamp/ecr@0.0.13
-  datacamp-deploy: datacamp/deploy@0.0.30
+  queue: eddiewebb/queue@1.6.4
+  datacamp-artifactory: datacamp/artifactory@1
+
 workflows:
-  version: 2
-  build_and_deploy:
+  main:
     jobs:
-      - datacamp-ecr/build_and_push_image_to_ecr:
-          name: build
+      - queue/block_workflow:
+          name: queue
           context: org-global
-          aws-access-key-id: $STAGING_AWS_ACCESS_KEY_ID
-          aws-secret-access-key: $STAGING_AWS_SECRET_ACCESS_KEY
-          account-url: $STAGING_ECR_URL
-          repo: rdoc-logstash
-          path: logstash
+          time: '10'
+
+      - datacamp-artifactory/build_and_push_image_to_artifactory:
+          name: docker-build
+          context: org-global
+          extra-docker-args: '--build-arg VERSION=$(git describe --tags)'
           dockerfile: logstash/Dockerfile
-      - datacamp-deploy/deploy: # Staging
-          context: org-global
-          requires:
-            - build
-          ecs-deploy-url: $STAGING_DEPLOY_URL
-          ecs-deploy-password: $STAGING_ECS_DEPLOY_PASSWORD
-          extra-env: "SERVICE=rdoc-logstash"
-          filters:
-            branches:
-              only:
-                - master
-      - datacamp-ecr/pull_push_to_account:
-          context: org-global
+          docker-version: 20.10.2
+          executor: datacamp-artifactory/buildkit
+          path: logstash
           repo: rdoc-logstash
           requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-      - datacamp-deploy/deploy: # Production 
+            - queue
+
+      - datacamp-artifactory/tag_repository:
+          name: tag
           context: org-global
           requires:
-            - datacamp-ecr/pull_push_to_account
-          ecs-deploy-url: $PROD_DEPLOY_URL
-          ecs-deploy-password: $PROD_ECS_DEPLOY_PASSWORD
-          extra-env: "SERVICE=rdoc-logstash"
+            - docker-build
           filters:
             branches:
               only:
