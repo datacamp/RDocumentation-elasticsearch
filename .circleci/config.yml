@@ -12,6 +12,7 @@ workflows:
           aws-access-key-id: $STAGING_AWS_ACCESS_KEY_ID
           aws-secret-access-key: $STAGING_AWS_SECRET_ACCESS_KEY
           account-url: $STAGING_ECR_URL
+          puller-account-ids: '["487088987264"]'
           repo: rdoc-logstash
           path: logstash
           dockerfile: logstash/Dockerfile
@@ -31,6 +32,7 @@ workflows:
       - datacamp-ecr/pull_push_to_account:
           context: org-global
           repo: rdoc-logstash
+          to-account-ids: '["301258414863"]'
           requires:
             - deploy-staging
           filters:
